@@ -4,8 +4,10 @@ WORKDIR /root/Exon
 
 COPY . .
 
-RUN pip3 install --upgrade pip setuptools
+# pip, setuptools နှင့် wheel ကို သီးသန့် အရင် upgrade လုပ်ပေးပါ
+RUN pip3 install --upgrade pip setuptools wheel
 
-RUN pip install -U -r requirements.txt
+# requirements ထဲက package များကို သွင်းပါ
+RUN pip install --no-cache-dir -r requirements.txt || pip install --legacy-resolver -r requirements.txt
 
-CMD bash start
+CMD ["bash", "start"]
